@@ -1,0 +1,69 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Kitab {
+  id          String      @id @default(uuid())
+  title       String
+  author      String      @default("Anonim")
+  genre       String      @default("Kajian")
+  era         String      @default("Klasik")
+  description String      @default("")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  jilids      Jilid[]
+  paragraphs  Paragraph[]
+}
+
+model Jilid {
+  id        String   @id @default(uuid())
+  kitabId   String
+  kitab     Kitab    @relation(fields: [kitabId], references: [id], onDelete: Cascade)
+  number    Int
+  title     String
+  babs      Bab[]
+  paragraphs Paragraph[]
+}
+
+model Bab {
+  id      String   @id @default(uuid())
+  jilidId String
+  jilid   Jilid    @relation(fields: [jilidId], references: [id], onDelete: Cascade)
+  number  Int
+  title   String
+  subBabs SubBab[]
+  paragraphs Paragraph[]
+}
+
+model SubBab {
+  id         String      @id @default(uuid())
+  babId      String
+  bab        Bab         @relation(fields: [babId], references: [id], onDelete: Cascade)
+  number     Int
+  title      String
+  paragraphs Paragraph[]
+}
+
+model Paragraph {
+  id              String   @id @default(uuid())
+  kitabId         String
+  kitab           Kitab    @relation(fields: [kitabId], references: [id], onDelete: Cascade)
+  jilidId         String
+  jilid           Jilid    @relation(fields: [jilidId], references: [id], onDelete: Cascade)
+  babId           String
+  bab             Bab      @relation(fields: [babId], references: [id], onDelete: Cascade)
+  subBabId        String
+  subBab          SubBab   @relation(fields: [subBabId], references: [id], onDelete: Cascade)
+  sequence        Int
+  arabicText      String
+  translationText String
+  type            String   @default("MATAN") // MATAN, SYARAH, TALIQ, etc.
+  pageNumber      Int      @default(1)
+  lineNumber      Int      @default(1)
+  createdAt       DateTime @default(now())
+}

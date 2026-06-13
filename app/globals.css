@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Classic Font Fallbacks and Custom styling */
+@layer utilities {
+  .dir-rtl {
+    direction: rtl;
+  }
+  
+  .font-amiri {
+    font-family: var(--font-amiri), 'Amiri', 'Adobe Naskh Medium', serif, system-ui;
+  }
+  
+  .font-naskh {
+    font-family: var(--font-noto-naskh), 'Noto Naskh Arabic', 'Adobe Naskh Medium', serif, system-ui;
+  }
+
+  /* Academic text justification to simulate publication-ready output */
+  .text-justify-arabic {
+    text-align: justify;
+    text-justify: inter-word;
+    direction: rtl;
+  }
+}

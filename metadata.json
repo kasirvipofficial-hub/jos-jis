@@ -1,0 +1,6 @@
+{
+  "name": "MAKtabah AI",
+  "description": "Progressive AI segmentation and alignment reader for classical literature.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
